@@ -53,7 +53,7 @@ export class TextlintFilterRuleContextImpl implements TextlintFilterRuleContext 
         return TextlintRuleErrorImpl;
     }
 
-    shouldIgnore = (range: [number, number], optional = {}) => {
+    shouldIgnore = (range: [number, number], optional: { ruleId?: string } = {}) => {
         assert.ok(
             Array.isArray(range) && typeof range[0] === "number" && typeof range[1] === "number",
             "shouldIgnore([number, number]); accept range."
