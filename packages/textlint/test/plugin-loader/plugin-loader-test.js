@@ -46,6 +46,11 @@ describe("plugin-loader", function () {
                 assert.equal(availableExtensions.length, 1);
                 assert.equal(availableExtensions[0], ".test");
             });
+            it("should return instance [availableExtensions]", function () {
+                const availableExtensions = loadAvailableExtensions(["has-processor-instance-ext"], moduleResolver);
+                assert.equal(availableExtensions.length, 1);
+                assert.equal(availableExtensions[0], ".test");
+            });
         });
     });
 });
