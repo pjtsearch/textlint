@@ -13,6 +13,7 @@ import {
     normalizeTextlintRulePresetKey
 } from "@textlint/utils";
 import { Logger } from "../util/logger";
+import { TextlintPluginOptions } from "@textlint/types";
 
 const md5 = require("md5");
 const fs = require("fs");
@@ -147,7 +148,7 @@ export class Config {
     disabledFilterRules: string[];
     presets: string[];
     plugins: string[];
-    pluginsConfig: { [index: string]: any };
+    pluginsConfig: { [index: string]: boolean | TextlintPluginOptions | undefined };
     rulesConfig: { [index: string]: any };
     filterRulesConfig: { [index: string]: any };
     rulePaths: string[];

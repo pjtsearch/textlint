@@ -1,6 +1,6 @@
 import { TextLintModuleResolver } from "../engine/textlint-module-resolver";
 import { moduleInterop } from "@textlint/module-interop";
-import { TextlintPluginCreator } from "@textlint/types";
+import { TextlintPluginCreator, TextlintPluginOptions } from "@textlint/types";
 const debug = require("debug")("textlint:plugin-loader");
 const assert = require("assert");
 
@@ -57,7 +57,9 @@ export function getPluginNames(configFileRaw: { plugins?: string[] | Record<stri
  * }
  * ```
  */
-export function getPluginConfig(configFileRaw: { [index: string]: any }): { [index: string]: any } {
+export function getPluginConfig(configFileRaw: {
+    plugins?: string[] | { [index: string]: TextlintPluginOptions | undefined };
+}): { [index: string]: boolean | TextlintPluginOptions | undefined } {
     const plugins = configFileRaw.plugins;
     if (!plugins) {
         return {};
@@ -67,7 +69,7 @@ export function getPluginConfig(configFileRaw: { [index: string]: any }): { [ind
             return {};
         }
         // { "pluginA": true, "pluginB": true }
-        return plugins.reduce((results, pluginName) => {
+        return plugins.reduce((results: Record<string, boolean>, pluginName) => {
             results[pluginName] = true;
             return results;
         }, {});
