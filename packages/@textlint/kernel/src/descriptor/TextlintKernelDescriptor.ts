@@ -10,7 +10,7 @@ import {
 import { TextlintPluginDescriptor } from "./TextlintPluginDescriptor";
 
 export interface TextlintKernelDescriptorArgs {
-    rules: TextlintKernelRule[];
+    rules: TextlintKernelRule<any>[];
     filterRules: TextlintKernelFilterRule[];
     plugins: TextlintKernelPlugin[];
 }

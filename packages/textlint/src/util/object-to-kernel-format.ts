@@ -18,10 +18,10 @@ import {
  *
  * => TextlintKernelRule
  */
-export const rulesObjectToKernelRule: (
-    rules: { [p: string]: TextlintRuleModule },
-    rulesOption: { [p: string]: TextlintKernelRule["options"] }
-) => TextlintKernelRule[] = (rules, rulesOption) => {
+export const rulesObjectToKernelRule: <T extends object = {}>(
+    rules: { [p: string]: TextlintRuleModule<T> },
+    rulesOption: { [p: string]: TextlintKernelRule<T>["options"] }
+) => TextlintKernelRule<T>[] = (rules, rulesOption) => {
     return Object.keys(rules).map((ruleId) => {
         return {
             ruleId,

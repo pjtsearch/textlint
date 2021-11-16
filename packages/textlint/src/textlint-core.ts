@@ -4,6 +4,12 @@
  textlint-core.js is a class
  textlint.js is a singleton object that is instance of textlint-core.js.
  */
+import type {
+    TextlintFilterRuleReporter,
+    TextlintKernelFilterRule,
+    TextlintKernelRule,
+    TextlintRuleModule
+} from "@textlint/kernel";
 import { TextlintKernelDescriptor } from "@textlint/kernel";
 import {
     TextlintFixResult,
@@ -113,7 +119,12 @@ export class TextLintCore {
      * @param {object} rules rule objects array
      * @param {object} [rulesOption] ruleConfig is object
      */
-    setupRules(rules = {}, rulesOption = {}) {
+    // TODO: add types
+    setupRules<T extends object = {}>(
+        rules: { [p: string]: TextlintRuleModule<T> } = {},
+        rulesOption: { [p: string]: TextlintKernelRule<T>["options"] } = {}
+    ) {
+        // TODO: Add types
         this.textlintKernelDescriptor = this.textlintKernelDescriptor.shallowMerge({
             rules: rulesObjectToKernelRule(rules, rulesOption)
         });
@@ -125,7 +136,12 @@ export class TextLintCore {
      * @param {object} filterRules rule objects array
      * @param {object} [filterRulesOption] ruleConfig is object
      */
-    setupFilterRules(filterRules = {}, filterRulesOption = {}) {
+    // TODO: Add types
+    setupFilterRules(
+        filterRules: { [p: string]: TextlintFilterRuleReporter } = {},
+        filterRulesOption: { [p: string]: TextlintKernelFilterRule["options"] } = {}
+    ) {
+        // TODO: Add types
         this.textlintKernelDescriptor = this.textlintKernelDescriptor.shallowMerge({
             filterRules: filterRulesObjectToKernelRule(filterRules, filterRulesOption)
         });

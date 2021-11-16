@@ -55,16 +55,16 @@ export interface TextlintKernelPlugin {
     options?: TextlintPluginOptions | boolean;
 }
 
-export interface TextlintKernelRule {
+export interface TextlintKernelRule<T extends object = {}> {
     // rule name as key
     // this key should be normalized
     ruleId: string;
     // rule module
     // For example, `rule: require("textlint-rule-example")`
-    rule: TextlintRuleModule;
+    rule: TextlintRuleModule<T>;
     // rule options
     // Often rule option is written in .textlintrc
-    options?: TextlintRuleOptions | boolean;
+    options?: TextlintRuleOptions<T> | boolean;
 }
 
 export interface TextlintKernelFilterRule {

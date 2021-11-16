@@ -1,5 +1,6 @@
 import * as assert from "assert";
 import { TextLintCore } from "../../src";
+import exampleFilterRule from "./fixtures/rules/example-filter-rule";
 import exampleRule from "./fixtures/rules/example-rule";
 
 describe("textlint-core", function () {
@@ -97,7 +98,7 @@ describe("textlint-core", function () {
     describe("#resetRules", function () {
         it("should reset filterRules", function () {
             const textlint = new TextLintCore();
-            textlint.setupFilterRules({ "rule-name": exampleRule });
+            textlint.setupFilterRules({ "rule-name": exampleFilterRule });
             assert.strictEqual(textlint.textlintKernelDescriptor.filterRule.descriptors.length, 1);
             textlint.resetRules();
             assert.strictEqual(textlint.textlintKernelDescriptor.filterRule.descriptors.length, 0);
