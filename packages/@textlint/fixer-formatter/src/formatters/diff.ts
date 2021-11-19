@@ -1,10 +1,18 @@
 "use strict";
 import type { TextlintFixResult } from "@textlint/types";
-const fs = require("fs");
+import fs from "fs";
 const isFile = require("is-file");
 const jsdiff = require("diff");
-const chalk = require("chalk");
-const stripAnsi = require("strip-ansi");
+import chalk, { Chalk } from "chalk";
+import stripAnsi from "strip-ansi";
+
+interface Diff {
+    value: string;
+    count: number;
+    added: boolean;
+    removed: boolean;
+}
+
 /**
  * Given a word and a count, append an s if count is not one.
  * @param {string} word A word in its singular form.
@@ -15,14 +23,14 @@ function pluralize(word: string, count: number): string {
     return count === 1 ? word : `${word}s`;
 }
 
-function isModified(part: any) {
+function isModified(part?: Diff) {
     if (!part) {
         return false;
     }
     return typeof part === "object" && (part.removed || part.added);
 }
 
-function addMarkEachLine(mark: string, text: any) {
+function addMarkEachLine(mark: string, text: string) {
     if (text.length === 0) {
         return "\n";
     }
@@ -35,7 +43,7 @@ function addMarkEachLine(mark: string, text: any) {
     return `${markedLines.join("\n")}\n`;
 }
 
-export default function (results: TextlintFixResult[], options: any) {
+export default function (results: TextlintFixResult[], options: { color?: boolean }) {
     // default: true
     const useColor = options.color !== undefined ? options.color : true;
     let output = "\n";
@@ -62,7 +70,7 @@ export default function (results: TextlintFixResult[], options: any) {
         const originalContent = fs.readFileSync(filePath, "utf-8");
         const diff = jsdiff.diffLines(originalContent, result.output);
 
-        diff.forEach(function (part: any, index: number) {
+        diff.forEach(function (part: Diff, index: number) {
             const prevLine = diff[index - 1];
             const nextLine = diff[index + 1];
             if (!isModified(part) && part.count > 1) {
@@ -90,7 +98,7 @@ export default function (results: TextlintFixResult[], options: any) {
             }
             // green for additions, red for deletions
             // grey for common parts
-            let lineColor;
+            let lineColor: keyof Chalk;
             let diffMark = "";
             if (part.added) {
                 lineColor = "green";
