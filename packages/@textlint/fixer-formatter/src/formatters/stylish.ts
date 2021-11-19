@@ -16,7 +16,7 @@ function pluralize(word: string, count: number): string {
     return count === 1 ? word : `${word}s`;
 }
 
-export default function (results: TextlintFixResult[], options: any) {
+export default function (results: TextlintFixResult[], options: { color?: boolean }) {
     // default: true
     const useColor = options.color !== undefined ? options.color : true;
     let output = "\n";
