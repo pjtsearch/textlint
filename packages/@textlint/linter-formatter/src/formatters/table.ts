@@ -43,7 +43,7 @@ function drawTable(messages: TextlintMessage[]): string {
     messages.forEach(function (message: TextlintMessage) {
         let messageType;
 
-        if ((message as any).fatal || message.severity === 2) {
+        if (message.fatal || message.severity === 2) {
             messageType = chalk.red("error");
         } else {
             messageType = chalk.yellow("warning");

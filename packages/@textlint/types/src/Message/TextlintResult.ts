@@ -24,6 +24,11 @@ export interface TextlintMessage {
     // Severity Level
     // See src/shared/type/SeverityLevel.js
     severity: number;
+    /**
+     * Whether the severity is fatal
+     * @deprecated Should use severity
+     */
+    fatal?: boolean;
 }
 
 // Linting result

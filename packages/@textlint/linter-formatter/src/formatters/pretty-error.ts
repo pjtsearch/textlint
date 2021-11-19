@@ -136,7 +136,7 @@ function formatter(results: TextlintResult[], options: FormatterOptions) {
             if (message.fix) {
                 totalFixable++;
             }
-            if ((message as any).fatal || message.severity === 2) {
+            if (message.fatal || message.severity === 2) {
                 errors++;
             } else {
                 warnings++;

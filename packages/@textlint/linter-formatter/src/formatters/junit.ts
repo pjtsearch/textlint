@@ -44,7 +44,7 @@ function formatter(results: TextlintResult[]) {
         }
 
         messages.forEach(function (message) {
-            const type = (message as any).fatal ? "error" : "failure";
+            const type = message.fatal ? "error" : "failure";
             output += '<testcase time="0" name="org.eslint.' + (message.ruleId || "unknown") + '">';
             output += "<" + type + ' message="' + lodash.escape(message.message || "") + '">';
             output += "<![CDATA[";

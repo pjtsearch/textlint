@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
-import type { TextlintFixResult } from "@textlint/types";
-function getMessageType(message: any) {
+import type { TextlintFixResult, TextlintMessage } from "@textlint/types";
+function getMessageType(message: TextlintMessage) {
     if (message.fatal || message.severity === 2) {
         return "Error";
     } else {
@@ -17,7 +17,7 @@ export function format(results: TextlintFixResult[]) {
         const messages = result.applyingMessages;
         total += messages.length;
 
-        messages.forEach((message) => {
+        messages.forEach((message: TextlintMessage) => {
             output += "Fixed✔ ";
             output += `${result.filePath}: `;
             output += `line ${message.line || 0}`;
